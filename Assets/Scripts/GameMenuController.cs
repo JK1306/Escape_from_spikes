@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class GameMenuController : MonoBehaviour
 {
-    public Button pauseBtn,
-                    restartBtn;
+    public Button pauseBtn;
     public Sprite playBtnSprite,
                     pauseBtnSprite;
     public Text scoreBoard;

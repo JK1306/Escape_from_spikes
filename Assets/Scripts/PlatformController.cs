@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlatformController : MonoBehaviour
 {
     public Sprite destroyableObj;
-    public int ScoreValue = 10;
+    public int ScoreValue;
     public bool isDestroyable = false,
                 isMovable = false,
                 moveRight = true;
@@ -16,7 +16,13 @@ public class PlatformController : MonoBehaviour
                 movementSpeed = 0.025f;
     Vector2 maxScreen,
             minScreen;
-    int hitNum = 0;
+    int hitNum = 0,
+        contactCount = 0;
+
+    private void Start() {
+        ScoreValue = 10;
+    }
+
     private void FixedUpdate() {
         if(isMovable){
             MovePlatform();
@@ -72,18 +78,40 @@ public class PlatformController : MonoBehaviour
     }
 
     IEnumerator destroyTimeOut(){
-        Debug.Log("Came to destroyTimeOut function");
         yield return new WaitForSeconds(waitForTimeOut);
-        Debug.Log("Came out to destroyTimeOut function");
         Destroy(gameObject);
     }
+
     private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.GetComponent<PlayerController>() != null){
+            if(ScoreValue > 0 && contactCount == 1){
+                Debug.Log("Reduce Score");
+                ScoreValue -= ScoreValue;
+            }
+            Debug.Log("Score Value : "+ScoreValue);
+            contactCount++;
+        }
+
         if(isDestroyable && other.gameObject.GetComponent<PlayerController>() != null){
             GetComponent<SpriteRenderer>().sprite = destroyableObj;
             StartCoroutine(destroyTimeOut());
             hitNum++;
             if(hitNum > 2){
                 Destroy(gameObject);
+            }
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D other) {
+        if(isMovable){
+            if(other.gameObject.GetComponent<PlayerController>() != null){
+                Vector2 playerPosition = other.gameObject.transform.position;
+                if(moveRight){
+                    playerPosition.x += movementSpeed;
+                }else{
+                    playerPosition.x -= movementSpeed;
+                }
+                other.gameObject.transform.position = playerPosition;
             }
         }
     }

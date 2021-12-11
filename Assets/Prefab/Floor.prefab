@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1501088597335146813}
+  - component: {fileID: 6779987236914291288}
   - component: {fileID: 4729723895680751019}
   - component: {fileID: 5160285616206753215}
   - component: {fileID: 7031805941764735167}
@@ -19,7 +19,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1501088597335146813
+--- !u!4 &6779987236914291288
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
