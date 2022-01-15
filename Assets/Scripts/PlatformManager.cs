@@ -25,11 +25,13 @@ public class PlatformManager : MonoBehaviour
         getMaxCord();
     }
 
-    int getProbable(){
+    bool getProbableOfCoinSpawn(){
         int randVal = Random.Range(1, 5);
-        // if(randVal == 3){
-        //     return true;
-        // }
+        return randVal == 3;
+    }
+
+    int getAbility(){
+        int randVal = Random.Range(1, 5);
         return randVal;
     }
 
@@ -53,7 +55,10 @@ public class PlatformManager : MonoBehaviour
             spawnStart = spawnPosition;
             spawnStart.y += platformSpace;
             PlatformController pltObj = platformInstance.GetComponent<PlatformController>();
-            activateAbility(getProbable(), pltObj);
+            activateAbility(getAbility(), pltObj);
+            if(!getProbableOfCoinSpawn()){
+                pltObj.DestroySpawnCoin();
+            }
             platformInstance.transform.parent = gameObject.transform;
         }
     }

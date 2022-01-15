@@ -9,6 +9,7 @@ public class PlatformController : MonoBehaviour
     public int ScoreValue;
     public bool isDestroyable = false,
                 isMovable = false,
+                isScorable = false,
                 moveRight = true;
     public float waitForTimeOut = 4,
                 maxX = 0,
@@ -16,8 +17,8 @@ public class PlatformController : MonoBehaviour
                 movementSpeed = 0.025f;
     Vector2 maxScreen,
             minScreen;
-    int hitNum = 0,
-        contactCount = 0;
+    int hitNum = 0;
+        // contactCount = 0;
 
     private void Start() {
         ScoreValue = 10;
@@ -58,6 +59,10 @@ public class PlatformController : MonoBehaviour
         minScreen = Camera.main.ScreenToWorldPoint(Vector2.zero);
     }
 
+    public void DestroySpawnCoin(){
+        Destroy(gameObject.transform.GetChild(0).gameObject);
+    }
+
     private void MovePlatform()
     {  
         Vector3 currentPosition = transform.position;
@@ -83,15 +88,7 @@ public class PlatformController : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.GetComponent<PlayerController>() != null){
-            if(ScoreValue > 0 && contactCount == 1){
-                Debug.Log("Reduce Score");
-                ScoreValue -= ScoreValue;
-            }
-            Debug.Log("Score Value : "+ScoreValue);
-            contactCount++;
-        }
-
+        // Destroyable Platform destroy
         if(isDestroyable && other.gameObject.GetComponent<PlayerController>() != null){
             GetComponent<SpriteRenderer>().sprite = destroyableObj;
             StartCoroutine(destroyTimeOut());
@@ -103,6 +100,7 @@ public class PlatformController : MonoBehaviour
     }
 
     private void OnCollisionStay2D(Collision2D other) {
+        // character movement when it stay in movable platform
         if(isMovable){
             if(other.gameObject.GetComponent<PlayerController>() != null){
                 Vector2 playerPosition = other.gameObject.transform.position;

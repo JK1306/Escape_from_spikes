@@ -46,14 +46,17 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        // Debug.Log("Collider Object tag name : "+other.gameObject.tag);
         if(other.gameObject.tag == "Floor" || other.gameObject.tag == "Platform"){
             inAir = false;
             gameObject.GetComponent<SpriteRenderer>().sprite = playerReadySprite[Manager.GameManagerObj.playerTypeIndex];
         }
+    }
 
-        if(other.gameObject.GetComponent<PlatformController>() != null){
-            gameControler.AddScore(other.gameObject.GetComponent<PlatformController>().ScoreValue);
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.transform.GetComponentInParent<PlatformController>() != null){
+            PlatformController platformObj = other.gameObject.transform.GetComponentInParent<PlatformController>();
+            gameControler.AddScore(platformObj.ScoreValue);
+            platformObj.DestroySpawnCoin();
         }
     }
 }

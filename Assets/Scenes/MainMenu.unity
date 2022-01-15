@@ -1106,6 +1106,7 @@ MonoBehaviour:
   bunny1: {fileID: 21300000, guid: 0b709f11bae57a74ba837d9aba525b12, type: 3}
   bunny2: {fileID: 21300000, guid: 84f449f20f2bd5c47a8ef146a66575a6, type: 3}
   playerSprite: {fileID: 0}
+  playerTypeIndex: 0
 --- !u!1 &1523381433
 GameObject:
   m_ObjectHideFlags: 0
