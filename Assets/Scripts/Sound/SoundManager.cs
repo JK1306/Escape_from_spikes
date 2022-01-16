@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource gameBgm, gameSfx;
+    public AudioSource gameSfx;
     public SoundType[] soundTypes;
     private static SoundManager soundManagerInstance;
     public static SoundManager SoundManagerInstance{
@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour
         }
     }
     private void Awake() {
-        if(soundManagerInstance != null){
+        if(soundManagerInstance == null){
             DontDestroyOnLoad(this);
             soundManagerInstance = this;
         }else{
@@ -21,23 +21,24 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayerMusic(Sounds sound){
+    public void Play(Sounds sound){
         SoundType audio = Array.Find(soundTypes, item => item.sounds == sound);
         if(audio != null){
-            gameSfx.clip = audio.audio;
-            gameSfx.Play();
+            gameSfx.PlayOneShot(audio.audio);
         }else{
             Debug.Log("Could not Find the Sound : "+sound);
         }
     }
 }
 
+[Serializable]
 public class SoundType{
     public Sounds sounds;
     public AudioClip audio;
 }
 
 public enum Sounds{
+    OptionButtonClick,
     ButtonClick,
     Jump,
     AddCoin,

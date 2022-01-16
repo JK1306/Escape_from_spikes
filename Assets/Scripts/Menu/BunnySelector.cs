@@ -20,9 +20,11 @@ public class BunnySelector : MonoBehaviour
 
     public void bunnySelect(int index){
         if(index == 1){
+            SoundManager.SoundManagerInstance.Play(Sounds.OptionButtonClick);
             menu.setPlayerSprite(Manager.GameManagerObj.bunny1);
             Manager.GameManagerObj.playerTypeIndex = 0;
         }else{
+            SoundManager.SoundManagerInstance.Play(Sounds.OptionButtonClick);
             menu.setPlayerSprite(Manager.GameManagerObj.bunny2);
             Manager.GameManagerObj.playerTypeIndex = 1;
         }

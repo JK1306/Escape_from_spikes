@@ -22,11 +22,12 @@ public class GameMenuController : MonoBehaviour
         AddScore();
     }
 
-    void enableTimeScale(){
+    public void enableTimeScale(){
         Time.timeScale = 1;
     }
 
     void pausePlayGame(){
+        SoundManager.SoundManagerInstance.Play(Sounds.ButtonClick);
         if(Time.timeScale == 1){
             Time.timeScale = 0;
             Debug.Log("Scale Time Set to 0");
@@ -35,16 +36,19 @@ public class GameMenuController : MonoBehaviour
     }
 
     void startPauseGame(){
+        SoundManager.SoundManagerInstance.Play(Sounds.ButtonClick);
         enableTimeScale();
         selectMenu.SetActive(false);
     }
 
     void restartGame(){
+        SoundManager.SoundManagerInstance.Play(Sounds.ButtonClick);
         enableTimeScale();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void returnHome(){
+        SoundManager.SoundManagerInstance.Play(Sounds.ButtonClick);
         enableTimeScale();
         SceneManager.LoadScene(0);
     }

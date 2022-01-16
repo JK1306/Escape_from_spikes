@@ -65,9 +65,11 @@ public class PlatformManager : MonoBehaviour
 
     public void getMaxCord(){
         maxScreen = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+        maxScreen.x -= 1;
     }
 
     public void getMinCord(){
         minScreen = Camera.main.ScreenToWorldPoint(Vector2.zero);
+        minScreen.x += 1;
     }
 }

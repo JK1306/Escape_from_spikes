@@ -17,10 +17,12 @@ public class MenuController : MonoBehaviour
     }
 
     void enableBunnySelector(){
+        SoundManager.SoundManagerInstance.Play(Sounds.OptionButtonClick);
         BunnySelectorPanel.SetActive(true);
     }
 
     void loadGame(){
+        SoundManager.SoundManagerInstance.Play(Sounds.ButtonClick);
         SceneManager.LoadScene(1);
     }
 
